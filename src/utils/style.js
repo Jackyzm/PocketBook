@@ -1,9 +1,12 @@
 // 公共样式/颜色
+const commonRed = '#f38181';
+const commonYellow = '#fce38a';
+const commonGreed = '#eaffd0';
+const commonBlue = '#95e1d3';
 
-const backgroundColor = '#f7f7f7';
+
 const fontColor = '#333';
-const primaryColor = '#37b0f9';
-const commonBlue = '#51B6EF';
 const borderBottom = '1px solid #ddd';
 
-export { backgroundColor, fontColor, primaryColor, commonBlue, borderBottom };
+
+export { commonRed, commonYellow, commonGreed, commonBlue, fontColor, borderBottom };

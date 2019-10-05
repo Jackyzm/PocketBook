@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, StyleSheet, StatusBar, Platform } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import Home from '@/pages/Home';
 import PersonalCenter from '@/pages/PersonalCenter';
-import { commonBlue } from '@/utils/style';
+import BookKeepingIndexPage from '@/pages/BookKeeping/IndexPage';
 
 const styles = StyleSheet.create({
     icon: {
@@ -18,13 +18,6 @@ const TabNavigator = createBottomTabNavigator(
         Home: {
             screen: Home,
             navigationOptions: {
-                tabBarOnPress: ({ defaultHandler }) => {
-                    StatusBar.setBarStyle('light-content', false);
-                    if (Platform.OS === 'android') {
-                        StatusBar.setBackgroundColor(commonBlue, false);
-                    }
-                    return defaultHandler();
-                },
                 tabBarIcon: ({ focused }) => (
                     <Text
                         style={ [
@@ -32,21 +25,45 @@ const TabNavigator = createBottomTabNavigator(
                             { color: focused ? '#069BFF' : '#B2B2B2' }
                         ] }
                     >
-                        &#xe61e;
+                        &#xe600;
                     </Text>
+                )
+            }
+        },
+        BookKeeping: {
+            screen: BookKeepingIndexPage,
+            navigationOptions: {
+                tabBarIcon: () => (
+                    <View
+                        style={{
+                            position: 'relative',
+                            top: -20,
+                            backgroundColor: '#f00',
+                            padding: 10,
+                            width: 70,
+                            height: 70,
+                            borderRadius: 35
+                        }}
+                    >
+                        <Text
+                            style={ [
+                                styles.icon,
+                                {
+                                    fontSize: 40,
+                                    color: '#fff'
+                                }
+                            ] }
+                        >
+                        &#xe601;
+                        </Text>
+                    </View>
+
                 )
             }
         },
         PersonalCenter: {
             screen: PersonalCenter,
             navigationOptions: {
-                tabBarOnPress: ({ defaultHandler }) => {
-                    StatusBar.setBarStyle('dark-content', false);
-                    if (Platform.OS === 'android') {
-                        StatusBar.setBackgroundColor('#fff', false);
-                    }
-                    return defaultHandler();
-                },
                 tabBarIcon: ({ focused }) => (
                     <Text
                         style={ [
@@ -54,7 +71,7 @@ const TabNavigator = createBottomTabNavigator(
                             { color: focused ? '#069BFF' : '#B2B2B2' }
                         ] }
                     >
-                        &#xe60d;
+                        &#xe607;
                     </Text>
                 )
             }
@@ -70,7 +87,7 @@ const TabNavigator = createBottomTabNavigator(
             },
             style: {
                 borderTopColor: '#F1F1F1',
-                backgroundColor: '#fff'
+                backgroundColor: '#f0f0f0'
             }
         }
     }
