@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, Button } from 'react-native';
+import {
+    View, Text, Button
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from '@/actions/example';
 
@@ -10,7 +12,7 @@ const Example = () => {
     const [form, setForm] = useState({ user: 'admin', pwd: '111111' });
     const { user, pwd } = form;
 
-    const count = useSelector(state => state.example.count);
+    const count = useSelector((state) => state.example.count);
 
     const dispatch = useDispatch();
 

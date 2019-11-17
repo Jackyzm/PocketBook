@@ -1,4 +1,4 @@
-const increment = params => (dispatch) => {
+const increment = (params) => (dispatch) => {
     console.log(params);
     setTimeout(() => {
         dispatch({ type: 'increment' });

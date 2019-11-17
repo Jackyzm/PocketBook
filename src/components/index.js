@@ -1,3 +1,9 @@
-import NavBar from './navBar';
+import NavBar from './NavBar';
+import TabBarComponent from './TabBarComponent';
+import SafeAreaBottomView from './SafeAreaBottomView';
 
-export { NavBar };
+export {
+    NavBar,
+    TabBarComponent,
+    SafeAreaBottomView
+};
