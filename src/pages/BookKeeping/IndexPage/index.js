@@ -3,25 +3,27 @@ import PropTypes from 'prop-types';
 import {
     View,
     Text,
-    SafeAreaView
+    SafeAreaView,
+    StatusBar
 } from 'react-native';
-import { NavBar } from '@/components';
+import { NavBar, SafeAreaBottomView } from '@/components';
+import { commonBlue } from '@/utils/style';
 import styles from './styles';
 
 const BookKeepingIndexPage = ({ navigation }) => {
     console.log('----', navigation);
 
     return (
-        <SafeAreaView style={ styles.safe_area_view }>
-            <NavBar
-                title="记账"
-                bgColor="#f00"
-                color="#fff"
-            />
-            <View style={ styles.container }>
-                <Text>BookKeepingIndexPage</Text>
-            </View>
-        </SafeAreaView>
+        <>
+            <StatusBar barStyle="light-content" backgroundColor={ commonBlue } />
+            <SafeAreaView style={ styles.safe_area_view }>
+                <NavBar title="记账" />
+                <View style={ styles.container }>
+                    <Text>BookKeepingIndexPage</Text>
+                </View>
+            </SafeAreaView>
+            <SafeAreaBottomView />
+        </>
     );
 };
 

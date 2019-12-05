@@ -7,6 +7,7 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
+import { commonBlue } from '@/utils/style';
 
 const styles = StyleSheet.create({
     nav_bar: {
@@ -33,13 +34,14 @@ const NavBar = (props) => {
         bgColor,
         color,
         navigation,
-        showBack = true
+        showBack = true,
+        afterBack
     } = props;
     return (
         <View
             style={{
                 ...styles.nav_bar,
-                backgroundColor: bgColor || '#fff'
+                backgroundColor: bgColor || commonBlue
             }}
         >
             { showBack ? (
@@ -50,7 +52,7 @@ const NavBar = (props) => {
                         paddingLeft: 20,
                         justifyContent: 'center'
                     }}
-                    onPress={ () => navigation.goBack() }
+                    onPress={ () => (afterBack ? afterBack() : navigation.goBack()) }
                 >
                     <Text
                         style={{
@@ -59,12 +61,12 @@ const NavBar = (props) => {
                             color: color || '#fff'
                         }}
                     >
-                    &#xe618;
+                        &#xe618;
                     </Text>
                 </TouchableOpacity>
             ) : <View style={{ width: 100 }} /> }
             <View style={ styles.title }>
-                <Text style={{ ...styles.title_text, color: color || '#333' }}>
+                <Text style={{ ...styles.title_text, color: color || '#fff' }}>
                     { title }
                 </Text>
             </View>
@@ -78,7 +80,8 @@ NavBar.propTypes = {
     bgColor: PropTypes.string,
     color: PropTypes.string,
     navigation: PropTypes.object,
-    showBack: PropTypes.bool
+    showBack: PropTypes.bool,
+    afterBack: PropTypes.func
 };
 
 export default withNavigation(NavBar);

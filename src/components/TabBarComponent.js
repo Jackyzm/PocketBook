@@ -8,8 +8,22 @@ import {
     Dimensions,
     Platform
 } from 'react-native';
+import { commonRed, commonBlue } from '@/utils/style';
 
 const styles = StyleSheet.create({
+    box_view: {
+        flexDirection: 'row',
+        backgroundColor: '#f0f0f0',
+        height: 48
+    },
+    add_btn: {
+        position: 'relative',
+        top: -20,
+        backgroundColor: commonRed,
+        width: 60,
+        height: 60,
+        borderRadius: 30
+    },
     icon: {
         fontFamily: 'iconfont',
         textAlign: 'center',
@@ -36,14 +50,12 @@ const TabBarComponent = ({ navigation }) => {
             || (SCREEN_WIDTH === X_WIDTH && SCREEN_HEIGHT === X_HEIGHT))
     );
 
+    const login = false;
+
     return (
         <View
             style={ [
-                {
-                    flexDirection: 'row',
-                    backgroundColor: '#f0f0f0',
-                    height: 48
-                },
+                styles.box_view,
                 isIphoneXOrXR() ? { paddingBottom: 34, height: 82 } : {}
             ] }
         >
@@ -55,7 +67,7 @@ const TabBarComponent = ({ navigation }) => {
                 <Text
                     style={ [
                         styles.icon,
-                        { color: !navigation.state.index ? '#069BFF' : '#B2B2B2' }
+                        { color: !navigation.state.index ? commonBlue : '#B2B2B2' }
                     ] }
                 >
                     &#xe600;
@@ -71,23 +83,15 @@ const TabBarComponent = ({ navigation }) => {
                 onPress={ () => navigation.navigate('BookKeepingIndex') }
             >
                 <View
-                    style={{
-                        position: 'relative',
-                        top: -30,
-                        backgroundColor: '#f00',
-                        padding: 10,
-                        width: 70,
-                        height: 70,
-                        borderRadius: 35
-                    }}
+                    style={ styles.add_btn }
                 >
                     <Text
                         style={ [
                             styles.icon,
                             {
-                                fontSize: 40,
+                                fontSize: 30,
                                 color: '#fff',
-                                lineHeight: 50
+                                lineHeight: 60
                             }
                         ] }
                     >
@@ -98,12 +102,12 @@ const TabBarComponent = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={ 1 }
                 style={{ flex: 1, height: 48 }}
-                onPress={ () => navigation.navigate('PersonalCenter') }
+                onPress={ () => (!login ? navigation.navigate('Login') : navigation.navigate('PersonalCenter')) }
             >
                 <Text
                     style={ [
                         styles.icon,
-                        { color: navigation.state.index ? '#069BFF' : '#B2B2B2' }
+                        { color: navigation.state.index ? commonBlue : '#B2B2B2' }
                     ] }
                 >
                     &#xe607;

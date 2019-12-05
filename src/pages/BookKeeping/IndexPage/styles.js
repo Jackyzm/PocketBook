@@ -1,11 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { backgroundColor } from '@/utils/style';
+import { commonBlue } from '@/utils/style';
 
 const styles = StyleSheet.create({
-    safe_area_view: { flex: 1, backgroundColor: '#fff' },
+    safe_area_view: {
+        flex: 1,
+        backgroundColor: commonBlue
+    },
     container: {
         flex: 1,
-        backgroundColor,
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center'
     }

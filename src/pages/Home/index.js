@@ -3,25 +3,27 @@ import React from 'react';
 import {
     SafeAreaView,
     View,
-    Text
+    Text,
+    StatusBar
     // TouchableOpacity,
 } from 'react-native';
-import { NavBar } from '@/components';
+import { NavBar, SafeAreaBottomView } from '@/components';
 import styles from './styles';
+import { commonBlue } from '@/utils/style';
 
 const Home = () => (
     <>
+        <StatusBar barStyle="light-content" backgroundColor={ commonBlue } />
         <SafeAreaView style={ styles.safe_area_view }>
             <NavBar
                 title="记账"
-                bgColor="#f00"
-                color="#fff"
                 showBack={ false }
             />
-            <View>
+            <View style={ styles.container }>
                 <Text>1234</Text>
             </View>
         </SafeAreaView>
+        <SafeAreaBottomView />
     </>
 );
 
