@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    TouchableOpacity,
+    TouchableHighlight,
     Text,
     StyleSheet
 } from 'react-native';
@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
 const Button = ({
     style = {},
     onPress,
-    activeOpacity = 0.6,
+    activeOpacity = 0.8,
     children,
     zIndex,
     boxStyle = {}
 }) => (
-    <TouchableOpacity
+    <TouchableHighlight
         style={ [boxStyle, zIndex ? { position: 'relative', zIndex } : {}] }
         activeOpacity={ activeOpacity }
         onPress={ onPress }
@@ -37,7 +37,7 @@ const Button = ({
         >
             { children }
         </Text>
-    </TouchableOpacity>
+    </TouchableHighlight>
 );
 
 Button.propTypes = {
