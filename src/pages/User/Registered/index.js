@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -9,13 +9,29 @@ import {
     Keyboard,
     StatusBar
 } from 'react-native';
+// import Toast from 'react-native-root-toast';
 import { NavBar, Button } from '@/components';
 import { getTimeTips } from '@/utils/utils';
+import { _register } from '@/utils/api/user';
+
 import styles from './styles';
 
-const Registered = ({ navigation }) => {
-    console.log(navigation);
+const Registered = () => {
+    useEffect(() => {
+        // console.log(navigation);
+    }, []);
+    const [mobile, setMobile] = useState('');
+    const [password, setPassword] = useState('');
     const tips = getTimeTips();
+
+    const register = () => {
+        console.log(mobile, password);
+        _register({ mobile, password }).then((res) => {
+            console.log('----success', res);
+        }).catch(() => {
+            console.log('----err');
+        });
+    };
     return (
         <>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -42,6 +58,7 @@ const Registered = ({ navigation }) => {
                                 dataDetectorTypes="phoneNumber"
                                 keyboardType="number-pad"
                                 style={{ width: '100%', fontSize: 18 }}
+                                onChangeText={ (value) => setMobile(value) }
                             />
                         </View>
                         <View
@@ -52,6 +69,7 @@ const Registered = ({ navigation }) => {
                                 autoCompleteType="off"
                                 style={{ width: '100%', fontSize: 18 }}
                                 secureTextEntry
+                                onChangeText={ (value) => setPassword(value) }
                             />
                             { /* <View>
                             <Button>获取验证码</Button>
@@ -63,7 +81,10 @@ const Registered = ({ navigation }) => {
                             <Button
                                 boxStyle={{ flex: 1 }}
                                 style={ styles.register_btn }
-                                onPress={ () => Keyboard.dismiss() }
+                                onPress={ () => {
+                                    Keyboard.dismiss();
+                                    register();
+                                } }
                             >
                                 立即注册
                             </Button>
@@ -72,10 +93,9 @@ const Registered = ({ navigation }) => {
                 </TouchableWithoutFeedback>
             </SafeAreaView>
         </>
-
     );
 };
 
-Registered.propTypes = { navigation: PropTypes.object };
+// Registered.propTypes = { navigation: PropTypes.object };
 
 export default Registered;
