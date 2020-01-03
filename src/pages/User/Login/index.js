@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -9,12 +9,31 @@ import {
     Keyboard,
     StatusBar
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { NavBar, Button } from '@/components';
-import { getTimeTips } from '@/utils/utils';
+import { getTimeTips, ShowToast } from '@/utils/utils';
+import { SetAsyncStorage } from '@/utils/AsyncStorage';
+import { _login } from '@/utils/api/user';
+import { changeLogin } from '@/actions/user';
 import styles from './styles';
 
 const Login = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const [mobile, setMobile] = useState('');
+    const [password, setPassword] = useState('');
     const tips = getTimeTips();
+
+    const login = () => {
+        if (!mobile) return ShowToast('请输入手机号');
+        if (!password) return ShowToast('请输入密码');
+        if (!/^1[3456789]\d{9}$/.test(mobile)) return ShowToast('请输入正确的手机号');
+        if (!/^.{6,18}$/.test(password)) return ShowToast('请输入6-18位的密码');
+        _login({ mobile, password }).then(async (res = {}) => {
+            SetAsyncStorage('authInfo', res);
+            navigation.navigate('Home');
+            dispatch(changeLogin(true));
+        }).catch(() => { });
+    };
     return (
         <>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -38,9 +57,11 @@ const Login = ({ navigation }) => {
                             <TextInput
                                 placeholder="请输入手机号"
                                 autoCompleteType="off"
+                                maxLength={ 11 }
                                 dataDetectorTypes="phoneNumber"
                                 keyboardType="number-pad"
                                 style={{ width: '100%', fontSize: 18 }}
+                                onChangeText={ (value) => setMobile(value) }
                             />
                         </View>
                         <View
@@ -51,10 +72,11 @@ const Login = ({ navigation }) => {
                                 autoCompleteType="off"
                                 style={{ width: '100%', fontSize: 18 }}
                                 secureTextEntry
+                                onChangeText={ (value) => setPassword(value) }
                             />
                             { /* <View>
-                            <Button>获取验证码</Button>
-                        </View> */ }
+                                <Button>获取验证码</Button>
+                            </View> */ }
                         </View>
                         <View
                             style={ styles.registered_forget_row }
@@ -74,12 +96,20 @@ const Login = ({ navigation }) => {
                                     立即注册
                                 </Button>
                             </View>
-
                         </View>
                         <View
                             style={ styles.login_row }
                         >
-                            <Button boxStyle={{ flex: 1 }} style={ styles.login_btn } onPress={ () => Keyboard.dismiss() }>登陆</Button>
+                            <Button
+                                boxStyle={{ flex: 1 }}
+                                style={ styles.login_btn }
+                                onPress={ () => {
+                                    Keyboard.dismiss();
+                                    login();
+                                } }
+                            >
+                                登陆
+                            </Button>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>

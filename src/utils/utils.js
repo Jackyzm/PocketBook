@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Toast from 'react-native-root-toast';
 
 const getTimeTips = () => {
     const hour = moment().format('HH');
@@ -15,4 +16,11 @@ const getTimeTips = () => {
     return tips;
 };
 
-export { getTimeTips };
+const ShowToast = (message, setting = {}) => {
+    Toast.show(message, { position: 100, ...setting });
+};
+
+export {
+    getTimeTips,
+    ShowToast
+};

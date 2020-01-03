@@ -1,10 +1,9 @@
 import request from '../request';
 
-// 登陆 获取token
-export const _getToken = async (params) =>
-    request('/oauth/token', {
+// 登陆
+export const _login = async (params) =>
+    request('/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
         body: params
     });
 
@@ -12,6 +11,5 @@ export const _getToken = async (params) =>
 export const _register = async (params) =>
     request('/register', {
         method: 'POST',
-        // headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
         body: params
     });

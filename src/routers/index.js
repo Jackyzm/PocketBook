@@ -1,24 +1,19 @@
-// import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import TabRoute from './TabNavigator';
-import BookKeepingIndex from '@/pages/BookKeeping/IndexPage';
-import Login from '@/pages/User/Login';
-import Registered from '@/pages/User/Registered';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import App from './App';
+import { GetAsyncStorage } from '@/utils/AsyncStorage';
+import { changeLogin } from '@/actions/user';
 
-const StackNavigator = createStackNavigator(
-    {
-        TabRoute,
-        BookKeepingIndex,
-        Login,
-        Registered
-    },
-    {
-        initialRouteName: 'TabRoute',
-        headerMode: 'none'
-    }
-);
-
-const AppNavigator = createAppContainer(StackNavigator);
+const AppNavigator = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        async function setLogin() {
+            const authInfo = await GetAsyncStorage('authInfo');
+            if (authInfo) dispatch(changeLogin(true));
+        }
+        setLogin();
+    }, []);
+    return (<App />);
+};
 
 export default AppNavigator;

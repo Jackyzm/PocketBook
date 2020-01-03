@@ -8,6 +8,7 @@ import {
     Dimensions,
     Platform
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import { commonRed, commonBlue } from '@/utils/style';
 
 const styles = StyleSheet.create({
@@ -50,7 +51,7 @@ const TabBarComponent = ({ navigation }) => {
             || (SCREEN_WIDTH === X_WIDTH && SCREEN_HEIGHT === X_HEIGHT))
     );
 
-    const login = false;
+    const login = useSelector((state) => state.user.login);
 
     return (
         <View
@@ -80,7 +81,7 @@ const TabBarComponent = ({ navigation }) => {
                     flexDirection: 'row',
                     justifyContent: 'center'
                 }}
-                onPress={ () => navigation.navigate('BookKeepingIndex') }
+                onPress={ () => navigation.navigate('AddOrEditNotes') }
             >
                 <View
                     style={ styles.add_btn }

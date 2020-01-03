@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -9,29 +9,34 @@ import {
     Keyboard,
     StatusBar
 } from 'react-native';
-// import Toast from 'react-native-root-toast';
+import { useDispatch } from 'react-redux';
+import { SetAsyncStorage } from '@/utils/AsyncStorage';
 import { NavBar, Button } from '@/components';
-import { getTimeTips } from '@/utils/utils';
+import { getTimeTips, ShowToast } from '@/utils/utils';
+import { changeLogin } from '@/actions/user';
 import { _register } from '@/utils/api/user';
 
 import styles from './styles';
 
-const Registered = () => {
-    useEffect(() => {
-        // console.log(navigation);
-    }, []);
+const Registered = ({ navigation }) => {
+    const dispatch = useDispatch();
+
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const tips = getTimeTips();
 
     const register = () => {
-        console.log(mobile, password);
-        _register({ mobile, password }).then((res) => {
-            console.log('----success', res);
-        }).catch(() => {
-            console.log('----err');
-        });
+        if (!mobile) return ShowToast('请输入手机号');
+        if (!password) return ShowToast('请输入密码');
+        if (!/^1[3456789]\d{9}$/.test(mobile)) return ShowToast('请输入正确的手机号');
+        if (!/^.{6,18}$/.test(password)) return ShowToast('请输入6-18位的密码');
+        _register({ mobile, password }).then((res = {}) => {
+            SetAsyncStorage('authInfo', res);
+            navigation.navigate('Home');
+            dispatch(changeLogin(true));
+        }).catch(() => {});
     };
+
     return (
         <>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -54,6 +59,7 @@ const Registered = () => {
                         >
                             <TextInput
                                 placeholder="请输入手机号"
+                                maxLength={ 11 }
                                 autoCompleteType="off"
                                 dataDetectorTypes="phoneNumber"
                                 keyboardType="number-pad"
@@ -96,6 +102,5 @@ const Registered = () => {
     );
 };
 
-// Registered.propTypes = { navigation: PropTypes.object };
-
+Registered.propTypes = { navigation: PropTypes.object };
 export default Registered;

@@ -1,5 +1,6 @@
 import qs from 'qs';
-import Toast from 'react-native-root-toast';
+import { ShowToast } from '@/utils/utils';
+import { GetAsyncStorage } from './AsyncStorage';
 import config from '../../config';
 // import { reLogin, refreshToken } from './user'; // eslint-disable-line
 
@@ -37,19 +38,8 @@ async function checkStatus(response) {
     ) {
         return Promise.reject(result);
     }
-    // notification.error({
-    //     message: '请求错误',
-    //     description: result.msg || result.error_description || codeMessage[response.status]
-    // });
     const message = result.msg || result.error_description || codeMessage[response.status] || '网络异常，请稍后重试～';
-    Toast.show(message, {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0
-    });
+    ShowToast(message);
     return Promise.reject(result);
 }
 
@@ -61,7 +51,7 @@ async function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 
-export default function request(url, options) {
+export default async function request(url, options) {
     // 用于添加超时判断
     // 详细查看
     // https://developer.mozilla.org/zh-CN/docs/Web/API/FetchController
@@ -75,13 +65,14 @@ export default function request(url, options) {
         signal
     };
 
-    // const authInfo = qs.parse(localStorage.getItem('authInfo')) || {};
-    // if (authInfo && url !== '/oauth/token') {
-    //     newOptions.headers = {
-    //         ...newOptions.headers,
-    //         Authorization: `Bearer ${authInfo.access_token}`
-    //     };
-    // }
+    const authInfo = await GetAsyncStorage('authInfo');
+
+    if (authInfo && url !== '/login') {
+        newOptions.headers = {
+            ...newOptions.headers,
+            Authorization: `Bearer ${authInfo.access_token}`
+        };
+    }
 
     if (newOptions.method === 'POST' || newOptions.method === 'PUT' || newOptions.method === 'DELETE') {
         if (!(newOptions.body instanceof FormData)) { // eslint-disable-line
@@ -151,11 +142,8 @@ export default function request(url, options) {
             // Network request failed 在上面无法被拦截 添加特殊处理
             // eslint-disable-next-line
             if (error == 'TypeError: Network request failed') {
-                console.log('网络异常，请稍后重试～');
-                // notification.error({
-                //     message: '请求错误',
-                //     description: '网络异常，请稍后重试～'
-                // });
+                // console.log('网络异常，请稍后重试～');
+                ShowToast('网络异常，请稍后重试～');
             }
             return Promise.reject(error);
         });
