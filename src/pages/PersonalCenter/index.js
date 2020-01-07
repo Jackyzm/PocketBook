@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import {
     View,
     Text,
+    StatusBar,
     SafeAreaView
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { Button } from '@/components';
+import { Button, NavBar } from '@/components';
 import { ClearAllAsyncStorage } from '@/utils/AsyncStorage';
 import { changeLogin } from '@/actions/user';
+import { commonBlue } from '@/utils/style';
 import styles from './styles';
 
 const PersonalCenter = ({ navigation }) => {
@@ -16,7 +18,12 @@ const PersonalCenter = ({ navigation }) => {
     const title = 'PersonalCenter';
     return (
         <>
+            <StatusBar barStyle="light-content" backgroundColor={ commonBlue } />
             <SafeAreaView style={ styles.safe_area_view }>
+                <NavBar
+                    title="个人中心"
+                    showBack={ false }
+                />
                 <View style={ styles.container }>
                     <Text>{ title }</Text>
                     <Button

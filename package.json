@@ -1,6 +1,6 @@
 {
     "name": "PocketBook",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "start": "react-native start",
@@ -9,6 +9,7 @@
         "android:release": "react-native run-android --variant=release",
         "ios": "react-native run-ios --simulator='iPhone 11 Pro Max'",
         "debug": "react-devtools",
+        "build:android": "cd ./android && ./gradlew bundleRelease",
         "test": "jest",
         "lint": "eslint ./src --fix",
         "link:assets": "react-native link"
@@ -20,6 +21,7 @@
     },
     "dependencies": {
         "@react-native-community/async-storage": "^1.7.1",
+        "@react-native-community/cli-platform-android": "^3.0.3",
         "moment": "^2.24.0",
         "react": "^16.12.0",
         "react-native": "^0.61.5",

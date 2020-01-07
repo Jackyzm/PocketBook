@@ -3,13 +3,14 @@ import React from 'react';
 import {
     SafeAreaView,
     View,
-    Text,
+    // Text,
     StatusBar
     // TouchableOpacity,
 } from 'react-native';
 import { NavBar, SafeAreaBottomView } from '@/components';
-import styles from './styles';
+import TopContent from './TopContent';
 import { commonBlue } from '@/utils/style';
+import styles from './styles';
 
 const Home = () => (
     <>
@@ -20,7 +21,7 @@ const Home = () => (
                 showBack={ false }
             />
             <View style={ styles.container }>
-                <Text>1234</Text>
+                <TopContent />
             </View>
         </SafeAreaView>
         <SafeAreaBottomView />
