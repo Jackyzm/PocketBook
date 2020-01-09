@@ -1,2 +1,2 @@
 # PocketBook
-react-natice
+react-native
