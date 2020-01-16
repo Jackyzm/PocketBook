@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: commonBlue
     },
-    container: {
+    home_container: {
         flex: 1,
         backgroundColor: '#fff'
     }

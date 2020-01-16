@@ -110,7 +110,8 @@
         "implicit-arrow-linebreak": 0,
         "react/no-array-index-key": 0,
         "global-require": 0,
-        "import/extensions": 0
+        "import/extensions": 0,
+        "react/jsx-props-no-spreading": 0
     },
     "globals": {}
 }

@@ -9,6 +9,12 @@ const styles = StyleSheet.create({
         // backgroundColor: 'transparent'
         color: '#fff'
         // backgroundColor: commonBlue
+    },
+    icon: {
+        fontFamily: 'iconfont',
+        // textAlign: 'center',
+        fontSize: 28,
+        lineHeight: 48
     }
 });
 
