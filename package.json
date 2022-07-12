@@ -23,7 +23,7 @@
         "@react-native-community/async-storage": "^1.7.1",
         "@react-native-community/cli-platform-android": "^3.0.3",
         "@react-native-community/datetimepicker": "^2.1.0",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "react": "^16.12.0",
         "react-native": "^0.62.3",
         "react-native-gesture-handler": "^1.5.2",
